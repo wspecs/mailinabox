@@ -41,7 +41,7 @@ server:
 
 EOF
 
-# Since we have bind9 listening on localhost for locally-generated
+# Since systemd-resolved listens on localhost for locally-generated
 # DNS queries that require a recursive nameserver, and the system
 # might have other network interfaces for e.g. tunnelling, we have
 # to be specific about the network interfaces that nsd binds to.
