@@ -59,6 +59,10 @@ InstallNextcloud() {
     wget_verify https://github.com/nextcloud/polls/releases/download/release-1.0/polls.tar.gz 593d4575ec7a11dc819f6ea09ad1623a7d5dbe07 /tmp/polls.tgz
 	tar xf /tmp/polls.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/polls.tgz
+    
+    wget_verify https://github.com/nextcloud/notes/releases/download/3.1.4/notes.tar.gz d785f16248c663bd83c13a9ef8d342607510d31a /tmp/notes.tgz
+	tar xf /tmp/notes.tgz -C /usr/local/lib/owncloud/apps/
+	rm /tmp/notes.tgz
 
 
 
@@ -293,6 +297,7 @@ hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable 
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable mail
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable tasks
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable polls
+hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable notes
 
 # When upgrading, run the upgrade script again now that apps are enabled. It seems like
 # the first upgrade at the top won't work because apps may be disabled during upgrade?
