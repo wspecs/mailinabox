@@ -52,7 +52,7 @@ InstallNextcloud() {
 	tar xf /tmp/mail.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/mail.tgz
     
-    wget_verify https://github.com/nextcloud/tasks/releases/download/0.11.3/tasks.tar.gz d9df941338d4be65c7e8bad5d0cf805cddb82019 /tmp/tasks.tgz
+    wget_verify https://github.com/nextcloud/tasks/releases/download/0.11.3/tasks.tar.gz 30ce216c177a7a4498fae074cbae884a7360ee28 /tmp/tasks.tgz
 	tar xf /tmp/tasks.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/tasks.tgz
     
