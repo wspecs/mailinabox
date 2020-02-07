@@ -63,6 +63,10 @@ InstallNextcloud() {
     wget_verify https://github.com/nextcloud/notes/releases/download/3.1.4/notes.tar.gz d785f16248c663bd83c13a9ef8d342607510d31a /tmp/notes.tgz
 	tar xf /tmp/notes.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/notes.tgz
+    
+    wget_verify https://github.com/nextcloud/spreed/releases/download/v8.0.1/spreed-8.0.1.tar.gz b370ba2b29b05e5b7abe8d61bb0425c112379c2d /tmp/spreed.tgz
+	tar xf /tmp/spreed.tgz -C /usr/local/lib/owncloud/apps/
+	rm /tmp/spreed.tgz
 
 
 
@@ -298,6 +302,7 @@ hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable 
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable tasks
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable polls
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable notes
+hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable spreed
 
 # When upgrading, run the upgrade script again now that apps are enabled. It seems like
 # the first upgrade at the top won't work because apps may be disabled during upgrade?
