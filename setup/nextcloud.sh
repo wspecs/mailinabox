@@ -40,13 +40,19 @@ InstallNextcloud() {
 	# their github repositories.
 	mkdir -p /usr/local/lib/owncloud/apps
 
-	wget_verify https://github.com/nextcloud/contacts/releases/download/v3.1.6/contacts.tar.gz d331dc6db2ecf7c8e6166926a055dfa3b59722c3 /tmp/contacts.tgz
+	wget_verify https://github.com/nextcloud/contacts/releases/download/v3.1.8/contacts.tar.gz 402337327e62a49c0635796f2ba6f778904c9f3d /tmp/contacts.tgz
 	tar xf /tmp/contacts.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/contacts.tgz
 
-	wget_verify https://github.com/nextcloud/calendar/releases/download/v1.7.1/calendar.tar.gz bd7c846bad06da6d6ba04280f6fbf37ef846c2ad /tmp/calendar.tgz
+	wget_verify https://github.com/nextcloud/calendar/releases/download/v2.0.1/calendar.tar.gz f0f372516535bfc4b012584c31d7435a46480e24 /tmp/calendar.tgz
 	tar xf /tmp/calendar.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/calendar.tgz
+
+	wget_verify https://github.com/nextcloud/mail/releases/download/v1.1.2/mail.tar.gz 57806f6aea5923b1ff6e0db711a439a282732fcf /tmp/mail.tgz
+	tar xf /tmp/mail.tgz -C /usr/local/lib/owncloud/apps/
+	rm /tmp/mail.tgz
+
+
 
 	# Starting with Nextcloud 15, the app user_external is no longer included in Nextcloud core,
 	# we will install from their github repository.
@@ -91,8 +97,8 @@ InstallNextcloud() {
 }
 
 # Nextcloud Version to install. Checks are done down below to step through intermediate versions.
-nextcloud_ver=17.0.2
-nextcloud_hash=8095fb46e9e0c536163708aee3d17fab8b498ad6
+nextcloud_ver=18.0.0
+nextcloud_hash=635604ede74c9919b6bab150c5da564f329dfbcd
 
 # Current Nextcloud Version, #1623
 # Checking /usr/local/lib/owncloud/version.php shows version of the Nextcloud application, not the DB
@@ -276,6 +282,7 @@ hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:disable
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable user_external
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable contacts
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable calendar
+hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable mail
 
 # When upgrading, run the upgrade script again now that apps are enabled. It seems like
 # the first upgrade at the top won't work because apps may be disabled during upgrade?
