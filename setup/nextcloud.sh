@@ -51,6 +51,10 @@ InstallNextcloud() {
 	wget_verify https://github.com/nextcloud/mail/releases/download/v1.1.2/mail.tar.gz 57806f6aea5923b1ff6e0db711a439a282732fcf /tmp/mail.tgz
 	tar xf /tmp/mail.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/mail.tgz
+    
+    wget_verify https://github.com/nextcloud/tasks/releases/download/0.11.3/tasks.tar.gz d9df941338d4be65c7e8bad5d0cf805cddb82019 /tmp/tasks.tgz
+	tar xf /tmp/tasks.tgz -C /usr/local/lib/owncloud/apps/
+	rm /tmp/tasks.tgz
 
 
 
@@ -283,6 +287,7 @@ hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable 
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable contacts
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable calendar
 hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable mail
+hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:enable tasks
 
 # When upgrading, run the upgrade script again now that apps are enabled. It seems like
 # the first upgrade at the top won't work because apps may be disabled during upgrade?
