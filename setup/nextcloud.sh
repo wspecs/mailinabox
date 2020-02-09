@@ -52,31 +52,27 @@ InstallNextcloud() {
 	tar xf /tmp/mail.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/mail.tgz
     
-    wget_verify https://github.com/nextcloud/tasks/releases/download/0.11.3/tasks.tar.gz 30ce216c177a7a4498fae074cbae884a7360ee28 /tmp/tasks.tgz
+        wget_verify https://github.com/nextcloud/tasks/releases/download/0.11.3/tasks.tar.gz 30ce216c177a7a4498fae074cbae884a7360ee28 /tmp/tasks.tgz
 	tar xf /tmp/tasks.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/tasks.tgz
     
-    wget_verify https://github.com/nextcloud/polls/releases/download/release-1.0/polls.tar.gz 593d4575ec7a11dc819f6ea09ad1623a7d5dbe07 /tmp/polls.tgz
+        wget_verify https://github.com/nextcloud/polls/releases/download/release-1.0/polls.tar.gz 593d4575ec7a11dc819f6ea09ad1623a7d5dbe07 /tmp/polls.tgz
 	tar xf /tmp/polls.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/polls.tgz
     
-    wget_verify https://github.com/nextcloud/notes/releases/download/3.1.4/notes.tar.gz d785f16248c663bd83c13a9ef8d342607510d31a /tmp/notes.tgz
+        wget_verify https://github.com/nextcloud/notes/releases/download/3.1.4/notes.tar.gz d785f16248c663bd83c13a9ef8d342607510d31a /tmp/notes.tgz
 	tar xf /tmp/notes.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/notes.tgz
     
-    wget_verify https://github.com/nextcloud/spreed/releases/download/v8.0.1/spreed-8.0.1.tar.gz b370ba2b29b05e5b7abe8d61bb0425c112379c2d /tmp/spreed.tgz
+        wget_verify https://github.com/nextcloud/spreed/releases/download/v8.0.1/spreed-8.0.1.tar.gz b370ba2b29b05e5b7abe8d61bb0425c112379c2d /tmp/spreed.tgz
 	tar xf /tmp/spreed.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/spreed.tgz
 
 
 
-	# Starting with Nextcloud 15, the app user_external is no longer included in Nextcloud core,
-	# we will install from their github repository.
-	if [[ $version =~ ^1[567] ]]; then
-		wget_verify https://github.com/nextcloud/user_external/releases/download/v0.7.0/user_external-0.7.0.tar.gz 555a94811daaf5bdd336c5e48a78aa8567b86437 /tmp/user_external.tgz
-		tar -xf /tmp/user_external.tgz -C /usr/local/lib/owncloud/apps/
-		rm /tmp/user_external.tgz
-	fi
+	wget_verify https://github.com/nextcloud/user_external/releases/download/v0.7.0/user_external-0.7.0.tar.gz 555a94811daaf5bdd336c5e48a78aa8567b86437 /tmp/user_external.tgz
+	tar -xf /tmp/user_external.tgz -C /usr/local/lib/owncloud/apps/
+	rm /tmp/user_external.tgz
 
 	# Fix weird permissions.
 	chmod 750 /usr/local/lib/owncloud/{apps,config}
@@ -149,34 +145,6 @@ if [ ! -d /usr/local/lib/owncloud/ ] || [[ ! ${CURRENT_NEXTCLOUD_VER} =~ ^$nextc
 	fi
 	if [ -e $STORAGE_ROOT/owncloud/config.php ]; then
 		cp $STORAGE_ROOT/owncloud/config.php $BACKUP_DIRECTORY
-	fi
-
-	# If ownCloud or Nextcloud was previously installed....
-	if [ ! -z ${CURRENT_NEXTCLOUD_VER} ]; then
-		# Database migrations from ownCloud are no longer possible because ownCloud cannot be run under
-		# PHP 7.
-		if [[ ${CURRENT_NEXTCLOUD_VER} =~ ^[89] ]]; then
-			echo "Upgrades from Mail-in-a-Box prior to v0.28 (dated July 30, 2018) with Nextcloud < 13.0.6 (you have ownCloud 8 or 9) are not supported. Upgrade to Mail-in-a-Box version v0.30 first. Setup aborting."
-			exit 1
-		elif [[ ${CURRENT_NEXTCLOUD_VER} =~ ^1[012] ]]; then
-			echo "Upgrades from Mail-in-a-Box prior to v0.28 (dated July 30, 2018) with Nextcloud < 13.0.6 (you have ownCloud 10, 11 or 12) are not supported. Upgrade to Mail-in-a-Box version v0.30 first. Setup aborting."
-			exit 1
-		elif [[ ${CURRENT_NEXTCLOUD_VER} =~ ^13 ]]; then
-			# If we are running Nextcloud 13, upgrade to Nextcloud 14
-			InstallNextcloud 14.0.6 4e43a57340f04c2da306c8eea98e30040399ae5a
-			CURRENT_NEXTCLOUD_VER="14.0.6"
-		fi
-		if [[ ${CURRENT_NEXTCLOUD_VER} =~ ^14 ]]; then
-			# During the upgrade from Nextcloud 14 to 15, user_external may cause the upgrade to fail.
-			# We will disable it here before the upgrade and install it again after the upgrade.
-			hide_output sudo -u www-data php /usr/local/lib/owncloud/console.php app:disable user_external
-			InstallNextcloud 15.0.8 4129d8d4021c435f2e86876225fb7f15adf764a3
-			CURRENT_NEXTCLOUD_VER="15.0.8"
-		fi
-		if [[ ${CURRENT_NEXTCLOUD_VER} =~ ^15 ]]; then
-                        InstallNextcloud 16.0.6 0bb3098455ec89f5af77a652aad553ad40a88819
-                        CURRENT_NEXTCLOUD_VER="16.0.6"
-                fi
 	fi
 
 	InstallNextcloud $nextcloud_ver $nextcloud_hash
