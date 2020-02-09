@@ -48,10 +48,8 @@ See the [setup guide](https://mailinabox.email/guide.html) for detailed, user-fr
 For experts, start with a completely fresh (really, I mean it) Ubuntu 18.04 LTS 64-bit machine. On the machine...
 
 Install via command line:
-
-```bash
-   $ curl -s https://raw.githubusercontent.com/wspecs/mailinabox/master/install.sh | sudo -E bash
-```
+  
+    $ curl -s https://raw.githubusercontent.com/wspecs/mailinabox/master/install.sh | sudo -E bash
    
 Clone this repository:
 
