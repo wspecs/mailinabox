@@ -49,8 +49,9 @@ For experts, start with a completely fresh (really, I mean it) Ubuntu 18.04 LTS 
 
 Install via command line:
 
+```bash
    $ curl -s https://raw.githubusercontent.com/wspecs/mailinabox/master/install.sh | sudo -E bash
-   
+```
    
 Clone this repository:
 
