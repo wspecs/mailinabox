@@ -68,9 +68,7 @@ InstallNextcloud() {
 	tar xf /tmp/spreed.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/spreed.tgz
 
-
-
-	wget_verify https://github.com/nextcloud/user_external/releases/download/v0.7.0/user_external-0.7.0.tar.gz 555a94811daaf5bdd336c5e48a78aa8567b86437 /tmp/user_external.tgz
+	wget_verify https://github.com/nextcloud/user_external/releases/download/v0.8.0/user_external-0.8.0.tar.gz f913b0de6037a9deda844f11fd9f623eeae58b66 /tmp/user_external.tgz
 	tar -xf /tmp/user_external.tgz -C /usr/local/lib/owncloud/apps/
 	rm /tmp/user_external.tgz
 
@@ -139,9 +137,6 @@ if [ ! -d /usr/local/lib/owncloud/ ] || [[ ! ${CURRENT_NEXTCLOUD_VER} =~ ^$nextc
 	if [ -d /usr/local/lib/owncloud/ ]; then
 		echo "Upgrading Nextcloud --- backing up existing installation, configuration, and database to directory to $BACKUP_DIRECTORY..."
 		cp -r /usr/local/lib/owncloud "$BACKUP_DIRECTORY/owncloud-install"
-	fi
-	if [ -e $STORAGE_ROOT/owncloud/owncloud.db ]; then
-		cp $STORAGE_ROOT/owncloud/owncloud.db $BACKUP_DIRECTORY
 	fi
 	if [ -e $STORAGE_ROOT/owncloud/config.php ]; then
 		cp $STORAGE_ROOT/owncloud/config.php $BACKUP_DIRECTORY
