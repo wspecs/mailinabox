@@ -43,7 +43,6 @@ if [ ! -d $HOME/mailinabox ]; then
 
 	echo Downloading Mail-in-a-Box $TAG. . .
 	git clone \
-		-b $TAG --depth 1 \
 		https://github.com/wspecs/mailinabox \
 		$HOME/mailinabox \
 		< /dev/null 2> /dev/null
